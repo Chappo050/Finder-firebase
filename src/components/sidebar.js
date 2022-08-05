@@ -7,7 +7,7 @@ const SideBar = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 h-screen w-20 m-0 pt-2
+      className="fixed top-0 left-0 h-screen  m-0 pt-5
             flex flex-col bg-gray-900 text-white shadow-md gap-2"
     >
       <div className=" text-green-500 text-center border-2 border-green-500 -translate-y-2 text-xl font-extrabold">

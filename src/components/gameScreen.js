@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+
 import race from "../images/race.jpg";
 import snow from "../images/snow.jpg";
 import space from "../images/space.jpg";
 import { UserContext } from "../UserContext";
 import { useContext } from "react";
+import Board from "./board";
 
 function GameScreen() {
 
@@ -19,11 +20,14 @@ function GameScreen() {
 
 const changeGameState = ( gameState ) => {
   if (gameState === 1) {
-    return <img className="flex pl-20" src={race} />;
+    console.log("snow");
+    return <Board img={snow} />;
   } else if (gameState === 2) {
-    return <img  className="flex pl-20" src={snow} />;
+    console.log("race");
+    return <Board img={race} />;
   } else if (gameState === 3) {
-    return <img className="flex pl-20" src={space} />;
+    console.log("space");
+    return <Board img={space} />;
   } else {
     return (
       <div className="flex justify-center text-center h-auto w-auto p-10 pt-56 translate-x-1/2 text-3xl text-green-500 ">
@@ -32,4 +36,5 @@ const changeGameState = ( gameState ) => {
     );
   }
 };
+
 export default GameScreen;
