@@ -19,11 +19,11 @@ function GameScreen() {
 
 const changeGameState = ( gameState ) => {
   if (gameState === 1) {
-    return <img src={race} />;
+    return <img className="flex pl-20" src={race} />;
   } else if (gameState === 2) {
-    return <img src={snow} />;
+    return <img  className="flex pl-20" src={snow} />;
   } else if (gameState === 3) {
-    return <img src={space} />;
+    return <img className="flex pl-20" src={space} />;
   } else {
     return (
       <div className="flex justify-center text-center h-auto w-auto p-10 pt-56 translate-x-1/2 text-3xl text-green-500 ">
