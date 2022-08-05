@@ -1,36 +1,73 @@
-
 import race from "../images/race.jpg";
 import snow from "../images/snow.jpg";
 import space from "../images/space.jpg";
 import { UserContext } from "../UserContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Board from "./board";
+import Menu from "./selectMenu";
 
 function GameScreen() {
+  const { states, setStates } = useContext(UserContext);
 
-    const { state } = useContext(UserContext);
-  
+  //mouse position stuff
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [globalCoords, setGlobalCoords] = useState({ x: 0, y: 0 });
 
-    return (
-      <div className="flex">
-            {changeGameState(state)}
+  useEffect(() => {
+    const handleWindowMouseMove = (event) => {
+      setGlobalCoords({
+        x: event.screenX,
+        y: event.screenY,
+      });
+    };
+    window.addEventListener("click", handleWindowMouseMove);
+
+    return () => {
+      window.removeEventListener("click", handleWindowMouseMove);
+    };
+  }, []);
+
+  //convert the coords to a % of the window
+  const handleMouseMove = (event) => {
+    //including menu offset
+    setCoords({
+      x:
+        ((event.clientX - event.target.offsetLeft) / window.innerWidth) * 100 +
+        2,
+      y:
+        ((event.clientY - event.target.offsetTop) / window.innerHeight) * 100 +
+        4,
+    });
+  };
+
+  return (
+    <div className="-z-10" onClick={handleMouseMove}>
+      {changeGameState(states.game)}
+      <div>
+        {states.isMenuVisible ? null : (
+          <Menu
+            x={coords.x + "%"}
+            y={coords.y + "%"}
+            visible={true}
+            xTrue={(coords.x * window.innerWidth) / 100}
+            yTrue={(coords.y * window.innerHeight) / 100}
+          />
+        )}
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-const changeGameState = ( gameState ) => {
+const changeGameState = (gameState) => {
   if (gameState === 1) {
-    console.log("snow");
     return <Board img={snow} />;
   } else if (gameState === 2) {
-    console.log("race");
     return <Board img={race} />;
   } else if (gameState === 3) {
-    console.log("space");
     return <Board img={space} />;
   } else {
     return (
-      <div className="flex justify-center text-center h-auto w-auto p-10 pt-56 translate-x-1/2 text-3xl text-green-500 ">
+      <div className="pt-56 text-3xl text-green-500 ">
         Please choose a game board located on the left side of the screen.
       </div>
     );

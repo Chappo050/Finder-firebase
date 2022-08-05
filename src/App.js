@@ -2,22 +2,23 @@ import SideBar from "./components/sidebar";
 import TopBar from "./components/topBar";
 import GameScreen from "./components/gameScreen";
 import { UserContext } from "./UserContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 function App() {
-  const [state, setState] = useState(0);
+  const [states, setStates] = useState({game: 0, isMenuVisible: false});
 
   return (
-    <UserContext.Provider value={{ state, setState }}>
-      <div className="grid flex-col auto-cols-auto ">
-        <div className="col-start-2">
-          <TopBar />
-          <GameScreen />
+    <UserContext.Provider value={{ states, setStates }}>
+
+        <div className="grid flex-col auto-cols-auto pt-14  ">
+          <div className=" col-start-2">
+            <TopBar />
+            <GameScreen />
+          </div>
+          <div className="col-start-1 col-span-2 w-24 justify-center text-center ">
+            <SideBar />
+          </div>
         </div>
-        <div className="col-start-1 col-span-2 w-24 justify-center text-center ">
-          <SideBar />
-        </div>
-      </div>
     </UserContext.Provider>
   );
 }
