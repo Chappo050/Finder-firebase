@@ -3,22 +3,17 @@ import { UserContext } from "../UserContext";
 import { useContext, useEffect, useState } from "react";
 function Menu(props) {
 
-
-
-
-
+  const { states, setStates } = useContext(UserContext);
 
 const guessAtPosition = (x,y) => {
-  if (true) {
     console.log("You guessed X: " + Math.round(x) + " Y: " + Math.round(y))
-  }
-
+    setStates({ game: states.game, isMenuVisible: false, isMenuShowing: false });
 }
 
   return (
-    <div
+    <div id="menu"
       className={` mt-2 bg-gray-900 rounded-md shadow-xl w-44 ${
-        props.visible? "absolute" : "hidden"
+        states.isMenuVisible? "absolute" : "hidden"
       }`}
       style={{ left: props.x, top: props.y }}
 

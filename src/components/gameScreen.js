@@ -30,6 +30,11 @@ function GameScreen() {
   //convert the coords to a % of the window
   const handleMouseMove = (event) => {
     //including menu offset
+    if (!states.isMenuShowing) {
+      setStates({ game: states.game, isMenuVisible: true, isMenuShowing: true});
+    }
+ 
+  
     setCoords({
       x:
         ((event.clientX - event.target.offsetLeft) / window.innerWidth) * 100 +
@@ -44,15 +49,12 @@ function GameScreen() {
     <div className="-z-10" onClick={handleMouseMove}>
       {changeGameState(states.game)}
       <div>
-        {states.isMenuVisible ? null : (
-          <Menu
-            x={coords.x + "%"}
-            y={coords.y + "%"}
-            visible={true}
-            xTrue={(coords.x * window.innerWidth) / 100}
-            yTrue={(coords.y * window.innerHeight) / 100}
-          />
-        )}
+        <Menu
+          x={coords.x + "%"}
+          y={coords.y + "%"}
+          xTrue={(coords.x * window.innerWidth) / 100}
+          yTrue={(coords.y * window.innerHeight) / 100}
+        />
       </div>
     </div>
   );
