@@ -30,6 +30,7 @@ function Menu(props) {
     waldoY: 30,
   });
 
+
   //on game load Effect. Get the database of locations
   useEffect(() => {
     onSnapshot(collection(db, "Locations"), (snapshot) =>
@@ -49,7 +50,8 @@ function Menu(props) {
       game: states.game,
       isMenuVisible: false,
       isMenuShowing: false,
-      win: false
+      win: false,
+      name: states.name
     });
 
     //add server checks here
@@ -69,8 +71,9 @@ function Menu(props) {
       const mill = document.getElementById("timerMi").textContent;
       const game = states.game;
       const time = min + sec + mill;
-      addScore("ASS", game, time);
-      setStates({game: states.game, isMenuVisible: false, isMenuShowing: false, win: true})
+      const name = states.name;
+      addScore(name, game, time);
+      setStates({game: states.game, isMenuVisible: false, isMenuShowing: false, win: true, name: states.name})
     }
   }, [correctCount]);
 
@@ -153,11 +156,11 @@ function Menu(props) {
 
   const addScore = async (name, game, time) => {
     addDoc(collection(db, "Leaderboard"), {
-      name: name,
+      [name]: time,
       game: game,
-      time: time,
     });
   };
+
 
   return (
     <div

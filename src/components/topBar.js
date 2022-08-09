@@ -11,13 +11,19 @@ import imgMedThree from "../images/chars/female-3.png";
 import imgHardThree from "../images/chars/waldo-3.png";
 import { UserContext } from "../UserContext";
 import { useContext, useEffect, useState } from "react";
+import Menu from "./selectMenu"
 
 const TopBar = () => {
-  const { states } = useContext(UserContext);
+  const { states, setStates } = useContext(UserContext);
   const gameOneChars = [imgEasyOne, imgMedOne, imgHardOne];
   const gameTwoChars = [imgEasyTwo, imgMedTwo, imgHardTwo];
   const gameThreeChars = [imgEasyThree, imgMedThree, imgHardThree];
   const [chars, setChars] = useState([]);
+  const [nameInput, setNameInput] = useState("ASS");
+
+  useEffect(()=> {
+   setStates({game: states.game, isMenuVisible: false, isMenuShowing: false, win: false, name: nameInput})
+  }, [nameInput])
 
   useEffect(() => {
     const game = states.game;
@@ -30,10 +36,14 @@ const TopBar = () => {
     }
   }, [states.game]);
 
+  const handleChange = (event) => {
+    setNameInput(event.target.value);
+  };
+
   return (
     <div
       className="fixed top-0 left-0 w-screen h-14 m-0 pt-2
-              bg-gray-900 grid grid-cols-3 "
+              bg-gray-900 grid grid-cols-3 px-8 "
     >
       <div className="text-green-500 text-center text-4xl -translate-y-3 grid grid-cols-3 w-auto">
         <TopBarIcon
@@ -53,10 +63,18 @@ const TopBar = () => {
         />
       </div>
 
-<div className="m-2 justify-self-center ">
-  <label className="text-green-500 text-2xl  ">Name: </label>
-  <input className="w-24 h-8 bg-gray-900 text-white text-2xl shadow-sm shadow-green-500"  id="name" defaultValue={"Name"}  maxLength={3} ></input>
-</div>
+      <div className="m-2 justify-self-center">
+        <label className="text-green-500 text-2xl  ">Name: </label>
+        <input
+          className="w-24 h-8 bg-gray-900 text-white text-2xl shadow-sm shadow-green-500"
+          type="text"
+          id="name"
+          name="name"
+          onChange={handleChange}
+          value={nameInput}
+          maxLength={3}
+        ></input>
+      </div>
       <div className="text-green-500 text-center text-4xl -translate-y-1">
         <Timer />
       </div>
@@ -64,13 +82,13 @@ const TopBar = () => {
   );
 };
 
-const TopBarIcon = ({ icon, text = "tooltip", img="" }) => (
+const TopBarIcon = ({ icon, text = "tooltip", img = "" }) => (
   <div className="sidebar-icon group ">
     {icon}
 
     <span className="sidebar-tooltip group-hover:scale-100 text-lg translate-y-10  ">
       {text}
-      {img?<img className=" object-cover h-24 w-24 " src={img}/>:null}
+      {img ? <img className=" object-cover h-24 w-24 " src={img} /> : null}
     </span>
   </div>
 );

@@ -32,7 +32,7 @@ function GameScreen() {
   const handleMouseMove = (event) => {
     //including menu offset
     if (!states.isMenuShowing) {
-      setStates({ game: states.game, isMenuVisible: true, isMenuShowing: true , win: false});
+      setStates({ game: states.game, isMenuVisible: true, isMenuShowing: true , win: false, name: states.name});
     }
  
   
