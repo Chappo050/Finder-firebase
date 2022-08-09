@@ -1,6 +1,7 @@
 import race from "../images/race.jpg";
 import snow from "../images/snow.jpg";
 import space from "../images/space.jpg";
+import win from "../images/winner.gif";
 import { UserContext } from "../UserContext";
 import { useContext, useEffect, useState } from "react";
 import Board from "./board";
@@ -31,7 +32,7 @@ function GameScreen() {
   const handleMouseMove = (event) => {
     //including menu offset
     if (!states.isMenuShowing) {
-      setStates({ game: states.game, isMenuVisible: true, isMenuShowing: true});
+      setStates({ game: states.game, isMenuVisible: true, isMenuShowing: true , win: false});
     }
  
   
@@ -47,7 +48,7 @@ function GameScreen() {
 
   return (
     <div className="-z-10 object-cover h-[900px] w-[1500px]" onClick={handleMouseMove}>
-      {changeGameState(states.game)}
+      {states.win? <img className="-z-10 object-cover h-[900px] w-[1500px]"  src={win}/>:changeGameState(states.game)}
       <div>
         <Menu
           x={coords.x}
@@ -70,7 +71,7 @@ const changeGameState = (gameState) => {
   } else {
     return (
       <div className="pt-56 text-3xl text-green-500 ">
-        Please choose a game board located on the left side of the screen.
+         ← ← ← Please choose a game board located on the left side of the screen.
       </div>
     );
   }

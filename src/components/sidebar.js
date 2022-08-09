@@ -27,7 +27,7 @@ const SideBar = () => {
 };
 
 const SideBarIcon = ({ icon, text = "tooltip", set, state}) => (
-  <div className="sidebar-icon group" onClick={()=>set({game: state, isMenuVisible: false, isMenuShowing: false})} >
+  <div className="sidebar-icon group" onClick={()=>set({game: state, isMenuVisible: false, isMenuShowing: false, win: false})} >
     {icon}
 
     <span className="sidebar-tooltip group-hover:scale-100 text-lg">{text}</span>

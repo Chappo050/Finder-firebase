@@ -1,10 +1,9 @@
-
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import db from "../firebase";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
 
-function Leaderboard({name, game, time}) {
-const [leaderboard, setLeaderboard] = useState(0)
+function Leaderboard({ name, game, time }) {
+  const [leaderboard, setLeaderboard] = useState(0);
   //on game load Effect. Get the database of locations
   useEffect(() => {
     onSnapshot(collection(db, "Leaderboard"), (snapshot) =>
@@ -12,22 +11,16 @@ const [leaderboard, setLeaderboard] = useState(0)
     );
   }, []);
 
-  useEffect(()=>{
-addScore(name, game, time)
-  },[time])
+  const addScore = () => {
+    // Add a new document in collection "cities"
+    db.collection("Leaderboard").add({
+      name: name,
+      game: game,
+      time: time,
+    });
+  };
 
-const addScore= () => {
-  // Add a new document in collection "cities"
-  db.collection("Leaderboard").add({
-    name: name,
-    game: game,
-    time: time
-})
-}
-
-  return (
-    <div></div>
-  );
+  return <div></div>;
 }
 
 export default Leaderboard;

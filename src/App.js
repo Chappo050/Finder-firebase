@@ -6,7 +6,7 @@ import { UserContext } from "./UserContext";
 import { useContext, useEffect, useState } from "react";
 
 function App() {
-  const [states, setStates] = useState({game: 0, isMenuVisible: false, isMenuShowing: false});
+  const [states, setStates] = useState({game: 0, isMenuVisible: false, isMenuShowing: false, win: false});
 
   return (
     <UserContext.Provider value={{ states, setStates }}>
