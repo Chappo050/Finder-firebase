@@ -7,7 +7,7 @@ import { useContext } from "react";
 const Timer = () => {
     const [time, setTime] = useState(0);
     const [running, setRunning] = useState(true);
-    const { state } = useContext(UserContext);
+    const { states } = useContext(UserContext);
     useEffect(() => {
       let interval;
       if (running) {
@@ -23,13 +23,13 @@ const Timer = () => {
 
     useEffect(() => {
 setTime(0)
-    },[state] )
+    },[states.game] )
     return (
       <div className="stopwatch">
-        <div className="numbers">
-          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+        <div className="numbers" >
+          <label id="timerM">{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</label>
+          <label id="timerS">{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</label>
+          <label id="timerMi">{("0" + ((time / 10) % 100)).slice(-2)}</label>
         </div>
         <div className="buttons">
         </div>

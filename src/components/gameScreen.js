@@ -46,7 +46,7 @@ function GameScreen() {
   };
 
   return (
-    <div className="-z-10" onClick={handleMouseMove}>
+    <div className="-z-10 object-cover h-[900px] w-[1500px]" onClick={handleMouseMove}>
       {changeGameState(states.game)}
       <div>
         <Menu

@@ -2,13 +2,16 @@ import { UserContext } from "../UserContext";
 import { useContext, useEffect, useState } from "react";
 import db from "../firebase";
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import Leaderboard from "./leaderboard";
 
 function Menu(props) {
   const { states, setStates } = useContext(UserContext);
 
   const [gameLocInfo, setGameLocInfo] = useState([]);
 
-  const [charInfo, setCharInfo] = useState({testx: 10, testy: 10, testxx: 20, testyy:20, testxxx: 30, testyyy: 30 })
+  const [correctCount, setCorrectCount] = useState({charOne: false, charTwo: false, charThree: false});
+
+  const [charInfo, setCharInfo] = useState({wallyX: 10, wallyY: 10, girlX: 20, girlY:20, waldoX: 30, waldoY: 30 })
 
   //on game load Effect. Get the database of locations
   useEffect(() => {
@@ -17,7 +20,12 @@ function Menu(props) {
     );
   }, []);
 
-  
+  useEffect(() => {
+    const game = states.game;
+    setCorrectCount({charOne: false, charTwo: false, charThree: false})
+    guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "charOne")
+  }, [states.game]);
+
   const guessAtPosition = (xTrue, yTrue, xPec, yPec, char) => {
     console.log(
       "You guessed X: " + Math.round(xTrue) + " Y: " + Math.round(yTrue)
@@ -29,9 +37,21 @@ function Menu(props) {
     });
 
     //add server checks here
-    handleGuessCheck(Math.round(xPec), Math.round(yPec), char);
+    handleGuessCheck(Math.round(xTrue), Math.round(yTrue), char);
   };
 
+
+useEffect(()=>{
+console.log(correctCount)
+if (correctCount.charOne === true && correctCount.charTwo === true && correctCount.charThree === true) {
+  console.log("ADDING TO FIREBASE");
+  const min = document.getElementById("timerM").textContent
+  const sec = document.getElementById("timerS").textContent
+  const mill = document.getElementById("timerMi").textContent
+  const game = states.game;
+  Leaderboard("ASS", game, String(min +":" + sec +":" + mill) )
+};
+},[correctCount])
 
   const extractData=(states, gameLocInfo) => {
     const gameBoard = states.game;
@@ -47,9 +67,8 @@ function Menu(props) {
         console.log("error parsing Data");
       }
     });
-    console.log(gameArray);;
 
-    setCharInfo({testx:  gameArray[0], testy: gameArray[1], testxx: gameArray[2], testyy:gameArray[3], testxxx: gameArray[4], testyyy: gameArray[5] })
+    setCharInfo({wallyX:  gameArray[0], wallyY: gameArray[1], girlX: gameArray[2], girlY:gameArray[3], waldoX: gameArray[4], waldoY: gameArray[5] })
   }
 
 
@@ -63,29 +82,42 @@ function Menu(props) {
     //get char X and Y
     let charX = 0;
     let charY = 0;
-    if (char === "wally") {
-      charX = charInfo.testx
-      charY = charInfo.testy
-    } else if (char === "waldo") {
-      charX = charInfo.testxx
-      charY = charInfo.testyy
-    } else if (char === "other") {
-      charX = charInfo.testxxx
-      charY = charInfo.testyyy
+    if (char === "charOne") {
+      charX = charInfo.wallyX
+      charY = charInfo.wallyY
+    } else if (char === "charTwo") {
+      charX = charInfo.girlX
+      charY = charInfo.girlY
+    } else if (char === "charThree") {
+      charX = charInfo.waldoX
+      charY = charInfo.waldoY
     }
 
     //check X in range
-    if (x > charX - 5 && x < charX +5 ) {
+    if (x > charX - 35 && x < charX + 35 ) {
       xCorrect = true
     }
     //check Y
-    if (y > charY - 5 && y < charY +5) {
+    if (y > charY - 35 && y < charY + 35 ) {
       yCorrect = true
     }
     if (xCorrect && yCorrect) {
-      console.log("YOU FOUND HIM!");
-      //cross char off logic
+
+      if (char === "charOne") {
+        setCorrectCount({charOne: true, charTwo: correctCount.charTwo, charThree: correctCount.charThree});
+      } else if (char === "charTwo") {
+        setCorrectCount({charOne: correctCount.charOne , charTwo: true, charThree: correctCount.charThree});
+      } else if (char === "charThree") {
+        setCorrectCount({charOne: correctCount.charOne, charTwo: correctCount.charTwo, charThree: true});
+      }
+
+      //game win logic
+      //leaderboard shit
     }
+
+ 
+
+
 }
 
 
@@ -99,29 +131,29 @@ function Menu(props) {
       style={{ left: props.x + "%", top: props.y + "%" }}
     >
       <div>
-        <i
+        <i 
           className="block px-4 py-2 text-sm text-white  hover:bg-gray-700 hover:text-white"
           onClick={() =>
-            guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "wally")
+            guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "charOne")
           }
         >
-          Wally
+          WALLY
         </i>
-        <i
+        <i 
           className="block px-4 py-2 text-sm text-white hover:bg-gray-700 hover:text-white "
           onClick={() =>
-            guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "waldo")
+            guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "charTwo")
           }
         >
-          Waldo
+           FEMALE WALLY
         </i>
-        <i
+        <i 
           className="block px-4 py-2 text-sm text-white hover:bg-gray-700 hover:text-white"
           onClick={() =>
-            guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "other")
+            guessAtPosition(props.xTrue, props.yTrue, props.x, props.y, "charThree")
           }
         >
-          Other
+           WALDO
         </i>
       </div>
     </div>

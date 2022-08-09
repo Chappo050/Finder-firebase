@@ -1,6 +1,7 @@
 import SideBar from "./components/sidebar";
 import TopBar from "./components/topBar";
 import GameScreen from "./components/gameScreen";
+import Leaderboard from "./components/leaderboard";
 import { UserContext } from "./UserContext";
 import { useContext, useEffect, useState } from "react";
 
