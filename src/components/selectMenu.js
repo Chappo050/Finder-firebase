@@ -1,13 +1,29 @@
 
 import { UserContext } from "../UserContext";
 import { useContext, useEffect, useState } from "react";
+import db from "../firebase";
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
+
+
 function Menu(props) {
 
   const { states, setStates } = useContext(UserContext);
 
+  const [gameLocInfo, setGameLocInfo] = useState([]);
+
+  //on game load Effect. Get the database of locations
+  useEffect(() => {
+    onSnapshot(collection(db, "Locations"), (snapshot) =>
+    setGameLocInfo(snapshot.docs.map((doc) => doc.data())))
+    console.log("updating");
+  },[])
+
 const guessAtPosition = (x,y) => {
     console.log("You guessed X: " + Math.round(x) + " Y: " + Math.round(y))
     setStates({ game: states.game, isMenuVisible: false, isMenuShowing: false });
+
+    //add server checks here
+    console.log(gameLocInfo);
 }
 
   return (

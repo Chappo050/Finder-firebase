@@ -18,9 +18,9 @@ const SideBar = () => {
         <h1>E</h1>
         <h1>R</h1>
       </div>
-      <SideBarIcon icon={<TbCircleDot size="40" />} text="EASY" set={setStates} state={1} />
-      <SideBarIcon icon={<TbCircleDot size="40" />} text="MEDIUM"  set={setStates}  state={2} />
-      <SideBarIcon icon={<TbCircleDot size="40" />} text="HARD" set={setStates}  state={3} />
+      <SideBarIcon icon={<TbCircleDot size="40" />} text="EASY" set={setStates} state={"gameOne"} />
+      <SideBarIcon icon={<TbCircleDot size="40" />} text="MEDIUM"  set={setStates}  state={"gameTwo"} />
+      <SideBarIcon icon={<TbCircleDot size="40" />} text="HARD" set={setStates}  state={"gameThree"} />
 
     </div>
   );

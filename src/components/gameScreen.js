@@ -61,11 +61,11 @@ function GameScreen() {
 }
 
 const changeGameState = (gameState) => {
-  if (gameState === 1) {
+  if (gameState === "gameOne") {
     return <Board img={snow} />;
-  } else if (gameState === 2) {
+  } else if (gameState === "gameTwo") {
     return <Board img={race} />;
-  } else if (gameState === 3) {
+  } else if (gameState === "gameThree") {
     return <Board img={space} />;
   } else {
     return (
