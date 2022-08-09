@@ -50,8 +50,8 @@ function GameScreen() {
       {changeGameState(states.game)}
       <div>
         <Menu
-          x={coords.x + "%"}
-          y={coords.y + "%"}
+          x={coords.x}
+          y={coords.y}
           xTrue={(coords.x * window.innerWidth) / 100}
           yTrue={(coords.y * window.innerHeight) / 100}
         />

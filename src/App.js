@@ -10,7 +10,7 @@ function App() {
   return (
     <UserContext.Provider value={{ states, setStates }}>
 
-        <div className="grid flex-col auto-cols-auto pt-14  ">
+        <div className="grid flex-col auto-cols-auto h-screen pt-14  ">
           <div className=" col-start-2">
             <TopBar />
             <GameScreen />
