@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Finder-firebase/static/css/main.b3b237dd.css",
+    "main.js": "/Finder-firebase/static/js/main.45ab8848.js",
+    "static/media/winner.gif": "/Finder-firebase/static/media/winner.04236a3b0bf873d52654.gif",
+    "static/media/race.jpg": "/Finder-firebase/static/media/race.a7c2e9ca4743476aa203.jpg",
+    "static/media/space.jpg": "/Finder-firebase/static/media/space.e1b616592899fcd93699.jpg",
+    "static/media/snow.jpg": "/Finder-firebase/static/media/snow.29270c1997a6b000991e.jpg",
+    "static/media/travel-2.png": "/Finder-firebase/static/media/travel-2.a2f2ebdffe0a44ee33f1.png",
+    "static/media/travel-1.png": "/Finder-firebase/static/media/travel-1.482c38e7914b3849f737.png",
+    "static/media/waldo-2.png": "/Finder-firebase/static/media/waldo-2.b7a36dfb2d80f2f4ff68.png",
+    "static/media/travel-3.png": "/Finder-firebase/static/media/travel-3.4d8390eb926995003669.png",
+    "static/media/female-2.png": "/Finder-firebase/static/media/female-2.173b29f9b6542cd26086.png",
+    "static/media/waldo-1.png": "/Finder-firebase/static/media/waldo-1.debd9a7f6bc54c944a7b.png",
+    "index.html": "/Finder-firebase/index.html",
+    "main.b3b237dd.css.map": "/Finder-firebase/static/css/main.b3b237dd.css.map",
+    "main.45ab8848.js.map": "/Finder-firebase/static/js/main.45ab8848.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3b237dd.css",
+    "static/js/main.45ab8848.js"
+  ]
+}
