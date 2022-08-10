@@ -6,6 +6,7 @@ import { collection, getDocs, onSnapshot } from "firebase/firestore";
 function Leaderboard() {
   const { states } = useContext(UserContext);
   const [leaderboard, setLeaderboard] = useState(0);
+  const [parsingData, setParsingData] = useState(0);
   const [leaders, setLeaders] = useState({ Name: [1, 2], Time: [1, 2] });
   //on game load Effect. Get the database of locations
   useEffect(() => {
@@ -20,22 +21,37 @@ function Leaderboard() {
     }
   }, [states.game]);
 
-  useEffect(() => {
-    console.log(leaders);
-  }, [leaders]);
-
   const parseData = () => {
+    console.log(leaderboard);
     const currentBoard = states.game;
-    let leadersName = [];
-    let leadersTime = [];
-    leaderboard.forEach((element) => {
+    let temp = {};
+    let tempLeaderBoards = leaderboard
+    tempLeaderBoards.forEach((element) => {
       if (element.game === currentBoard) {
-        leadersName.push(element.name);
-        leadersTime.push(element.time);
+        if (Object.keys(element)[0] === 'game') {
+          const key = Object.keys(element)[1];
+          let value = Object.values(element)[1];
+  
+          value = value.replace(/:/g, "");
+  
+          temp[key] = value;
+        }
+        else {
+          const key = Object.keys(element)[0];
+          let value = Object.values(element)[0];
+  
+          value = value.replace(/:/g, "");
+  
+          temp[key] = value;
+        }
+       
       }
     });
-
-    setLeaders({ Name: leadersName, Time: leadersTime.sort() });
+    //sorting fastest to slowest (found on stackoverflow, no clue how it works)
+    const sorted = Object.entries(temp)
+      .sort(([, a], [, b]) => a - b)
+      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+      setLeaders(sorted)
   };
 
   return (
@@ -55,27 +71,34 @@ function Leaderboard() {
       </div>
       <div>
         Name:
-        {leaders.Name.map((object, i) => (
-          <DisplayRowName obj={object} key={i} />
+        {Object.keys(leaders).map((key) => (
+          <DisplayRowName obj={key} />
         ))}
       </div>
-
+      <div>
+        Time:
+        {Object.values(leaders).map((v) => (
+          <DisplayRowTime obj={v} />
+        ))}
+      </div>
     </div>
   );
 }
 
-const DisplayRowName = (obj) => {
+const DisplayRowName = ({ obj }) => {
   return (
     <div>
-      <ul>obj</ul>
+      <ul>{obj}</ul>
     </div>
   );
 };
 
-const DisplayRowTime = (obj) => {
+const DisplayRowTime = ({ obj }) => {
+  let time = obj;
+  time = time.slice(0,2) + ":" + time.slice(2,4) + ":" + time.slice(4,6)
   return (
     <div>
-      <ul>{Object.values(obj)}</ul>
+      <ul>{time}</ul>
     </div>
   );
 };
