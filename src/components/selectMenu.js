@@ -112,6 +112,11 @@ function Menu(props) {
     //get char X and Y
     let charX = 0;
     let charY = 0;
+    //to enable smaller screens
+    let screenMultiplier = 1
+    if (window.innerWidth < 1536) {
+      screenMultiplier = 1.2
+    }
     if (char === "charOne") {
       charX = charInfo.wallyX;
       charY = charInfo.wallyY;
@@ -124,11 +129,11 @@ function Menu(props) {
     }
 
     //check X in range
-    if (x > charX - 35 && x < charX + 35) {
+    if (x * screenMultiplier > charX - 35 && x * screenMultiplier < charX + 35) {
       xCorrect = true;
     }
     //check Y
-    if (y > charY - 35 && y < charY + 35) {
+    if (y * screenMultiplier > charY - 35 && y * screenMultiplier < charY + 35) {
       yCorrect = true;
     }
     if (xCorrect && yCorrect) {
@@ -138,18 +143,21 @@ function Menu(props) {
           charTwo: correctCount.charTwo,
           charThree: correctCount.charThree,
         });
+        alert("GOT ONE!")
       } else if (char === "charTwo") {
         setCorrectCount({
           charOne: correctCount.charOne,
           charTwo: true,
           charThree: correctCount.charThree,
         });
+        alert("GOT ONE!")
       } else if (char === "charThree") {
         setCorrectCount({
           charOne: correctCount.charOne,
           charTwo: correctCount.charTwo,
           charThree: true,
         });
+        alert("GOT ONE!")
       }
     }
   };

@@ -47,8 +47,8 @@ function GameScreen() {
   };
 
   return (
-    <div className="-z-10 object-cover h-[900px] w-[1500px]" onClick={handleMouseMove}>
-      {states.win? <img className="-z-10 object-cover h-[900px] w-[1500px]"  src={win}/>:changeGameState(states.game)}
+    <div className="-z-10 object-cover 2xl:h-[900px] 2xl:w-[1500px] xl:h-[720px] xl:w-[1200px]" onClick={handleMouseMove}>
+      {states.win? <img   src={win}/>:changeGameState(states.game)}
       <div>
         <Menu
           x={coords.x}
